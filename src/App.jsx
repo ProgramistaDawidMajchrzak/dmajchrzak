@@ -22,6 +22,7 @@ function App() {
 
           {/* {!validUser ? <WelcomePage /> : <PasswordPage />} */}
           <Routes>
+            <Route path='/' element={<LogIn />} />
             <Route path='/ticket_config' element={<TicketConfig />} />
             <Route path='*' element={<LogIn />} />
           </Routes>
