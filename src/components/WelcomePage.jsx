@@ -7,7 +7,6 @@ import UserContext from './UserContext';
 function WelcomePage() {
 
     const { validUser, setValidUser } = useContext(UserContext);
-    let userTest = {};
 
     const [users, setUsers] = useState([]);
     const [email, setEmail] = useState('');
@@ -25,18 +24,27 @@ function WelcomePage() {
     }, []);
 
 
-    function handleSubmit() {
-
+    function handleSubmit(e) {
+        e.preventDefault();
+        console.log('siema')
         const authUserEmail = users.find(user => user.email == email)
+
+        setEmail('')
 
         if (authUserEmail) {
             setValidUser(authUserEmail)
-            setIsCorrectEmail(true)
+            // setIsCorrectEmail(true)
         } else {
             setInvalidEmail(true)
         }
-        console.log(validUser);
     }
+
+    useEffect(() => {
+        if (validUser) {
+            setIsCorrectEmail(true)
+        }
+    }, [validUser])
+
 
     return (
         <>
@@ -49,9 +57,14 @@ function WelcomePage() {
                 placeholder="Email"
                 to='/password'
                 isCorrectEmail={isCorrectEmail}
-                type='email'
+                type='text'
                 setEmail={setEmail}
                 setInvalidEmail={setInvalidEmail}
+                value={email}
+                onChange={(e) => {
+                    setEmail(e.target.value)
+                    setInvalidEmail(false)
+                }}
             />
             {invalidEmail &&
                 <h5 className='invalid_data'>Podano niepoprawny email.</h5>

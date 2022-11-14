@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 
-const UserContext = createContext({ name: "siema" });
+const UserContext = createContext(null);
 
 export default UserContext;
 

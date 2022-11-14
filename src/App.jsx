@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import WelcomePage from './components/WelcomePage';
 import PasswordPage from './components/PasswordPage';
 import TicketConfig from './components/TicketConfig';
+import LogIn from './components/LogIn';
 import './App.css';
 
 import { Routes, Route } from 'react-router-dom';
@@ -11,7 +12,7 @@ import Logo from './assets/images/Logo.png';
 import UserContext from './components/UserContext';
 
 function App() {
-  const [validUser, setValidUser] = useState({});
+  const [validUser, setValidUser] = useState(null);
   return (
     <div className="App">
       <div className="content">
@@ -19,13 +20,12 @@ function App() {
         {/* <UserContext.Provider value={UserContext}> */}
         <UserContext.Provider value={{ validUser, setValidUser }}>
 
+          {/* {!validUser ? <WelcomePage /> : <PasswordPage />} */}
           <Routes>
-            <Route index element={<WelcomePage />} />
-            <Route path='/password' element={<PasswordPage />} />
-            <Route path='/ticket_config' element={<TicketConfig />}
-            />
-            <Route path='*' element={<WelcomePage />} />
+            <Route path='/ticket_config' element={<TicketConfig />} />
+            <Route path='*' element={<LogIn />} />
           </Routes>
+
         </UserContext.Provider>
         {/* </UserContext.Provider> */}
         {/* <WelcomePage /> */}
