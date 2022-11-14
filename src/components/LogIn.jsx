@@ -4,7 +4,7 @@ import PasswordPage from './PasswordPage';
 import UserContext from './UserContext';
 
 function LogIn() {
-    const { validUser, setValidUser } = useContext(UserContext);
+    const { validUser } = useContext(UserContext);
     return (
         <>
             {!validUser ? <WelcomePage /> : <PasswordPage />}

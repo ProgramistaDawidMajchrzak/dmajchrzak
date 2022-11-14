@@ -6,45 +6,31 @@ import UserContext from './UserContext';
 
 function WelcomePage() {
 
-    const { validUser, setValidUser } = useContext(UserContext);
+    const { setValidUser } = useContext(UserContext);
 
     const [users, setUsers] = useState([]);
     const [email, setEmail] = useState('');
 
-    const [isCorrectEmail, setIsCorrectEmail] = useState(false);
     const [invalidEmail, setInvalidEmail] = useState(false);
 
     useEffect(() => {
         axios.get('users.json')
             .then(res => {
                 setUsers(res.data.users)
-                console.log(res.data.users)
             })
             .catch(err => console.log(err))
     }, []);
 
-
     function handleSubmit(e) {
         e.preventDefault();
-        console.log('siema')
         const authUserEmail = users.find(user => user.email == email)
-
         setEmail('')
-
         if (authUserEmail) {
             setValidUser(authUserEmail)
-            // setIsCorrectEmail(true)
         } else {
             setInvalidEmail(true)
         }
     }
-
-    useEffect(() => {
-        if (validUser) {
-            setIsCorrectEmail(true)
-        }
-    }, [validUser])
-
 
     return (
         <>
@@ -55,20 +41,18 @@ function WelcomePage() {
 
                 handleSubmit={handleSubmit}
                 placeholder="Email"
-                to='/password'
-                isCorrectEmail={isCorrectEmail}
                 type='text'
-                setEmail={setEmail}
-                setInvalidEmail={setInvalidEmail}
                 value={email}
                 onChange={(e) => {
                     setEmail(e.target.value)
                     setInvalidEmail(false)
                 }}
             />
-            {invalidEmail &&
-                <h5 className='invalid_data'>Podano niepoprawny email.</h5>
-            }
+            <div className="info_wrapper">
+                {invalidEmail &&
+                    <h5 className='invalid_data'>Podano niepoprawny email.</h5>
+                }
+            </div>
         </>
     )
 }

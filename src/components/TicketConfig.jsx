@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import '../App.css';
 
 function TicketConfig() {
+
     const [overAll, setOverAll] = useState(0);
+
     const [adult, setAdult] = useState(0);
     const [middleKids, setMiddleKids] = useState(0);
     const [kids, setKids] = useState(0);

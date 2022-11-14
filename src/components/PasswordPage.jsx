@@ -6,18 +6,17 @@ import UserContext from './UserContext';
 function PasswordPage() {
 
     const { validUser } = useContext(UserContext);
+    const { setToken } = useContext(UserContext);
     const [password, setPassword] = useState('');
     const [invalidPassword, setInvalidPassword] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
         if (validUser.password == password) {
-            console.log('correct')
-            //correct
+            setToken(true)
         } else {
             setPassword('')
             setInvalidPassword(true)
-            console.log('incorrect')
         }
     }
     return (
@@ -28,7 +27,6 @@ function PasswordPage() {
             <Form
                 handleSubmit={handleSubmit}
                 placeholder="Hasło"
-                to='/ticket_config'
                 type='password'
                 value={password}
                 onChange={(e) => {
@@ -36,9 +34,11 @@ function PasswordPage() {
                     setInvalidPassword(false)
                 }}
             />
-            {invalidPassword &&
-                <h5 className='invalid_data'>Podano niepoprawne hasło.</h5>
-            }
+            <div className="info_wrapper">
+                {invalidPassword &&
+                    <h5 className='invalid_data'>Podano niepoprawne hasło.</h5>
+                }
+            </div>
         </>
     )
 }
